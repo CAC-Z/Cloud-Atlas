@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Atlas | Image Cloud Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">Cloud Atlas (云图生成器)</h1>
+        </header>
+
+        <main class="main-content">
+            <!-- Control Panel -->
+            <aside class="control-panel">
+                <!-- Upload Section -->
+                <section class="panel-section">
+                    <h2 class="section-title">📤 上传图片</h2>
+                    <div class="upload-zone" id="uploadZone">
+                        <div class="upload-content">
+                            <div class="upload-icon">🖼️</div>
+                            <p class="upload-text">拖拽或点击上传</p>
+                            <p class="upload-hint">支持 JPG, PNG, GIF, WebP, SVG</p>
+                        </div>
+                        <input type="file" id="fileInput" multiple accept="image/*" hidden>
+                    </div>
+                    <div class="image-count" id="imageCount">已选择 0 张图片</div>
+                    <button class="btn btn-clear" id="clearBtn" disabled>清除全部</button>
+                </section>
+
+                <!-- Settings Combined -->
+                <section class="panel-section">
+                    <h2 class="section-title">⚙️ 设置</h2>
+
+                    <!-- Shape -->
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="shape" value="original" checked>
+                            <span class="radio-text">原比例</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="shape" value="circle">
+                            <span class="radio-text">圆形</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="shape" value="square">
+                            <span class="radio-text">方形</span>
+                        </label>
+                    </div>
+
+                    <!-- Background -->
+                    <div class="color-picker-group" style="margin-top: 0.75rem;">
+                        <label class="color-label">
+                            <span>背景色</span>
+                            <input type="color" id="bgColor" value="#000000">
+                        </label>
+                    </div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="useGradient">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">渐变背景</span>
+                        </label>
+                    </div>
+                    <div class="color-picker-group gradient-colors" id="gradientColors" style="display: none;">
+                        <label class="color-label">
+                            <span>渐变 1</span>
+                            <input type="color" id="gradientColor1" value="#0c0a1d">
+                        </label>
+                        <label class="color-label">
+                            <span>渐变 2</span>
+                            <input type="color" id="gradientColor2" value="#1e1b4b">
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Effects -->
+                <section class="panel-section">
+                    <h2 class="section-title">✨ 效果</h2>
+                    <div class="slider-group">
+                        <label class="slider-label">
+                            <span>大小</span>
+                            <span class="slider-value" id="sizeValue">100%</span>
+                        </label>
+                        <input type="range" id="imageSize" min="50" max="200" value="100" class="slider">
+                    </div>
+                    <div class="slider-group">
+                        <label class="slider-label">
+                            <span>散布</span>
+                            <span class="slider-value" id="spreadValue">100%</span>
+                        </label>
+                        <input type="range" id="spreadRange" min="50" max="200" value="100" class="slider">
+                    </div>
+                    <div class="slider-group">
+                        <label class="slider-label">
+                            <span>旋转</span>
+                            <span class="slider-value" id="rotationValue">30°</span>
+                        </label>
+                        <input type="range" id="rotationIntensity" min="0" max="180" value="30" class="slider">
+                    </div>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="useShadow" checked>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-text">阴影效果</span>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Actions -->
+                <section class="panel-section actions">
+                    <button class="btn btn-primary" id="shuffleBtn" disabled>
+                        <span class="btn-icon">🎲</span>
+                        随机排列
+                    </button>
+                    <button class="btn btn-success" id="downloadBtn" disabled>
+                        <span class="btn-icon">💾</span>
+                        下载
+                    </button>
+                    <button class="btn btn-secondary" id="resetBtn">
+                        <span class="btn-icon">↺</span>
+                        重置参数
+                    </button>
+                    <p class="action-hint">外链图片可能无法导出</p>
+                </section>
+            </aside>
+
+            <!-- Canvas Area -->
+            <div class="canvas-container">
+                <div class="canvas-wrapper" id="canvasWrapper">
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon">🌌</div>
+                        <p class="empty-text">上传图片开始创作</p>
+                    </div>
+                    <div class="image-cloud" id="imageCloud"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer"></footer>
+    </div>
+
+    <canvas id="exportCanvas" style="display: none;"></canvas>
+    <script src="script.js"></script>
+</body>
+
+</html>
